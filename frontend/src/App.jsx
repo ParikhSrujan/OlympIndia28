@@ -1,8 +1,24 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+
+import Home from "./pages/Home";
+import Prediction from "./pages/Prediction";
+import Rankings from "./pages/Rankings";
+import Comparison from "./pages/Comparison";
+import Insights from "./pages/Insights";
+
 function App() {
   return (
-    <div className="text-3xl font-bold text-blue-600 p-6">
-      OlympINDIA28 Frontend
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/prediction" element={<Prediction />} />
+        <Route path="/rankings" element={<Rankings />} />
+        <Route path="/comparison" element={<Comparison />} />
+        <Route path="/insights" element={<Insights />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
