@@ -1,16 +1,30 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <nav className="bg-blue-600 text-white px-6 py-4 flex gap-6">
-      <Link to="/" className="font-bold">
+    <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center">
+      
+      {/* Project Name */}
+      <h1 className="text-xl font-bold text-blue-600">
         OlympINDIA28
-      </Link>
+      </h1>
 
-      <Link to="/prediction">Prediction</Link>
-      <Link to="/rankings">Rankings</Link>
-      <Link to="/comparison">Comparison</Link>
-      <Link to="/insights">Insights</Link>
+      {/* Navigation Links */}
+      <div className="flex gap-6 text-gray-700 font-medium">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive ? "text-blue-600 font-semibold" : ""
+          }
+        >
+          Home
+        </NavLink>
+
+        <NavLink to="/prediction">Prediction</NavLink>
+        <NavLink to="/rankings">Rankings</NavLink>
+        <NavLink to="/comparison">Comparison</NavLink>
+        <NavLink to="/insights">Insights</NavLink>
+      </div>
     </nav>
   );
 }
