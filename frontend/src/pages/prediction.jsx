@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MedalBarChart from "../components/MedalBarChart";
 
 function Prediction() {
   const [sport, setSport] = useState("Athletics");
@@ -62,6 +63,13 @@ function Prediction() {
             <p className="font-bold text-lg">Bronze</p>
             <p className="text-2xl mt-2">-</p>
           </div>
+        </div>
+        <div className="mt-10 bg-white shadow-md rounded-xl p-6">
+          <h2 className="text-xl font-semibold mb-4">
+            Medal Distribution Visualization
+          </h2>
+
+          <MedalBarChart />
         </div>
       </div>
     </div>
