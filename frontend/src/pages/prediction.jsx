@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MedalBarChart from "../components/MedalBarChart";
+import { USE_MOCK_API, BACKEND_URL } from "../config/api";
 
 function Prediction() {
   // Dropdown states
@@ -22,28 +23,32 @@ function Prediction() {
     setLoading(true);
     setError("");
 
-    // Simulate backend delay
-    setTimeout(() => {
-      try {
-        const mockApiResponse = {
+    if (USE_MOCK_API) {
+      // Mock API (current mode)
+      setTimeout(() => {
+        setMedals({
           gold: 10,
           silver: 12,
           bronze: 15,
-        };
-
-        setMedals(mockApiResponse);
-      } catch (err) {
-        setError("Failed to fetch prediction data.");
-      } finally {
+        });
         setLoading(false);
-      }
-    }, 1000);
-
+      }, 1000);
+    } else {
+      // Real backend API (future)
+      fetch(`${BACKEND_URL}/predict`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sport, year }),
+      })
+        .then((res) => res.json())
+        .then((data) => setMedals(data))
+        .catch(() => setError("Failed to fetch prediction data"))
+        .finally(() => setLoading(false));
+    }
   }, [sport, year]);
 
   return (
     <div className="p-10 max-w-4xl mx-auto">
-
       {/* Page Title */}
       <h1 className="text-3xl font-bold text-blue-600 mb-6">
         Medal Prediction
@@ -51,7 +56,6 @@ function Prediction() {
 
       {/* Dropdowns */}
       <div className="flex flex-col md:flex-row gap-6 mb-8">
-
         <div className="flex flex-col w-full">
           <label className="mb-2 font-medium">Select Sport</label>
           <select
@@ -81,16 +85,10 @@ function Prediction() {
 
       {/* Loading & Error */}
       {loading && (
-        <p className="text-blue-600 font-medium mb-4">
-          Loading predictions...
-        </p>
+        <p className="text-blue-600 font-medium mb-4">Loading predictions...</p>
       )}
 
-      {error && (
-        <p className="text-red-600 font-medium mb-4">
-          {error}
-        </p>
-      )}
+      {error && <p className="text-red-600 font-medium mb-4">{error}</p>}
 
       {/* Medal Cards */}
       {!loading && !error && (
@@ -128,7 +126,6 @@ function Prediction() {
           </div>
         </>
       )}
-
     </div>
   );
 }
