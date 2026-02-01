@@ -1,10 +1,17 @@
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-function MedalBarChart() {
+function MedalBarChart({ medals }) {
   const data = [
-    { medal: "Gold", count: 10 },
-    { medal: "Silver", count: 12 },
-    { medal: "Bronze", count: 15 },
+    { medal: "Gold", count: medals.gold || 0 },
+    { medal: "Silver", count: medals.silver || 0 },
+    { medal: "Bronze", count: medals.bronze || 0 },
   ];
 
   return (
